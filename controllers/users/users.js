@@ -1,5 +1,5 @@
 const User = require("../../model/user/User");
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 
 //register
 const registerCtrl = async (req, res) => {
@@ -12,9 +12,14 @@ const registerCtrl = async (req, res) => {
       return res.json({ status: "failed", data: "User already exits" });
     }
     //Hash password
-
+    const salt = await bcrypt.genSalt(10);
+    const passwordHashed = await bcrypt.hash(password, salt);
     //register user
-    const user = await User.create({ fullname, email, password });
+    const user = await User.create({
+      fullname,
+      email,
+      password: passwordHashed,
+    });
 
     res.json({ status: "success", dat: user });
   } catch (error) {

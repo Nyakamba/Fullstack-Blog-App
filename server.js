@@ -8,8 +8,7 @@ const app = express();
 
 //---------
 //users route
-//----------
-app.use("/", userRoutes);
+app.use("/api/v1/users/", userRoutes);
 
 //---------
 //posts route

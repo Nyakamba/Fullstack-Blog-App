@@ -29,8 +29,31 @@ const registerCtrl = async (req, res) => {
 
 //login
 const loginCtrl = async (req, res) => {
+  const { password, email } = req.body;
   try {
-    res.json({ status: "success", user: "User login" });
+    //check if email exists
+    const userFound = await User.findOne({ email });
+
+    if (!userFound) {
+      //throw error
+      return res.json({
+        status: "failed",
+        data: "Invalid login credentials",
+      });
+    }
+    //}
+
+    //verify password
+    const isPasswordValid = await bcrypt.compare(password, userFound.password);
+    if (!isPasswordValid) {
+      //throw error
+      return res.json({
+        status: "failed",
+        data: "Invalid login credentials",
+      });
+    }
+
+    res.json({ status: "success", data: userFound });
   } catch (error) {
     res.json(error);
   }

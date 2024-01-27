@@ -1,7 +1,21 @@
+const User = require("../../model/user/User");
+
 //register
 const registerCtrl = async (req, res) => {
+  const { fullname, email, password } = req.body;
   try {
-    res.json({ status: "success", user: "User registered" });
+    //1.check if user exits(email)
+    const userFound = await User.findOne({ email });
+    //throw error
+    if (userFound) {
+      return res.json({ status: "failed", data: "User already exits" });
+    }
+    //Hash password
+
+    //register user
+    const user = await User.create({ fullname, email, password });
+
+    res.json({ status: "success", dat: user });
   } catch (error) {
     res.json(error);
   }

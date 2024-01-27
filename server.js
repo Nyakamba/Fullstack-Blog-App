@@ -15,7 +15,7 @@ app.use("/api/v1/users", userRoutes);
 app.use("/api/v1/posts", postRoutes);
 
 //comments route
-app.use("/api/comments", commentRoutes);
+app.use("/api/v1/comments", commentRoutes);
 
 //Error handler middlewares
 //liten server

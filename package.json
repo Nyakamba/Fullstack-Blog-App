@@ -1,0 +1,16 @@
+{
+  "name": "fullstack-blog-app",
+  "version": "1.0.0",
+  "description": "fullstack blog application",
+  "main": "server.js",
+  "scripts": {
+    "test": "",
+    "start": "node server.js"
+  },
+  "keywords": [
+    "blog",
+    "nodejs"
+  ],
+  "author": "Omwega Enock",
+  "license": "ISC"
+}

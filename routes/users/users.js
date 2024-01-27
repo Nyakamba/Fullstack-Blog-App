@@ -2,7 +2,7 @@ const express = require("express");
 
 const userRoutes = express.Router();
 
-//POST/api/users/register
+//POST/api/v1/users/register
 
 userRoutes.post("/register", async (req, res) => {
   try {
@@ -12,7 +12,7 @@ userRoutes.post("/register", async (req, res) => {
   }
 });
 
-//POST/api/users/login
+//POST/api/v1/users/login
 userRoutes.post("/login", async (req, res) => {
   try {
     res.json({ status: "success", user: "User login" });
@@ -21,7 +21,7 @@ userRoutes.post("/login", async (req, res) => {
   }
 });
 
-//GET/api/user/:id
+//GET/api/v1/user/:id
 userRoutes.get("/:id", async (req, res) => {
   try {
     res.json({ status: "success", user: "User details" });
@@ -48,7 +48,7 @@ userRoutes.put("/profile-photo-upload/:id", async (req, res) => {
   }
 });
 
-//PUT/api/users/cover-photo-upload/:id
+//PUT/api/v1/users/cover-photo-upload/:id
 userRoutes.put("/cover-photo-upload/:id", async (req, res) => {
   try {
     res.json({ status: "success", user: "User cover-photo upload" });
@@ -57,7 +57,7 @@ userRoutes.put("/cover-photo-upload/:id", async (req, res) => {
   }
 });
 
-//PUT/api/users/update-password/:id
+//PUT/api/v1/users/update-password/:id
 userRoutes.put("/update-password/:id", async (req, res) => {
   try {
     res.json({ status: "success", user: "User update password" });
@@ -66,7 +66,7 @@ userRoutes.put("/update-password/:id", async (req, res) => {
   }
 });
 
-//PUT/api/users/update/:id
+//PUT/api/v1/users/update/:id
 userRoutes.put("/update/:id", async (req, res) => {
   try {
     res.json({ status: "success", user: "User updated" });
@@ -75,7 +75,7 @@ userRoutes.put("/update/:id", async (req, res) => {
   }
 });
 
-//GET/api/users/logout
+//GET/api/v1/users/logout
 userRoutes.get("/logout", async (req, res) => {
   try {
     res.json({ status: "success", user: "User logout" });

@@ -4,7 +4,7 @@ const userRoutes = express.Router();
 
 //POST/api/users/register
 
-userRoutes.post("/api/users/register", async (req, res) => {
+userRoutes.post("/register", async (req, res) => {
   try {
     res.json({ status: "success", user: "User registered" });
   } catch (error) {
@@ -13,7 +13,7 @@ userRoutes.post("/api/users/register", async (req, res) => {
 });
 
 //POST/api/users/login
-userRoutes.post("/api/users/login", async (req, res) => {
+userRoutes.post("/login", async (req, res) => {
   try {
     res.json({ status: "success", user: "User login" });
   } catch (error) {
@@ -22,7 +22,7 @@ userRoutes.post("/api/users/login", async (req, res) => {
 });
 
 //GET/api/user/:id
-userRoutes.get("/api/users/:id", async (req, res) => {
+userRoutes.get("/:id", async (req, res) => {
   try {
     res.json({ status: "success", user: "User details" });
   } catch (error) {
@@ -31,7 +31,7 @@ userRoutes.get("/api/users/:id", async (req, res) => {
 });
 
 //GET/api/users/profile/:id
-userRoutes.get("/api/users/profile/:id", async (req, res) => {
+userRoutes.get("/profile/:id", async (req, res) => {
   try {
     res.json({ status: "success", user: "User profile" });
   } catch (error) {
@@ -40,7 +40,7 @@ userRoutes.get("/api/users/profile/:id", async (req, res) => {
 });
 
 //PUT/api/users/profile-photo-upload/:id
-userRoutes.put("/api/users/profile-photo-upload/:id", async (req, res) => {
+userRoutes.put("/profile-photo-upload/:id", async (req, res) => {
   try {
     res.json({ status: "success", user: "User profile-photo upload" });
   } catch (error) {
@@ -49,7 +49,7 @@ userRoutes.put("/api/users/profile-photo-upload/:id", async (req, res) => {
 });
 
 //PUT/api/users/cover-photo-upload/:id
-userRoutes.put("/api/users/cover-photo-upload/:id", async (req, res) => {
+userRoutes.put("/cover-photo-upload/:id", async (req, res) => {
   try {
     res.json({ status: "success", user: "User cover-photo upload" });
   } catch (error) {
@@ -58,7 +58,7 @@ userRoutes.put("/api/users/cover-photo-upload/:id", async (req, res) => {
 });
 
 //PUT/api/users/update-password/:id
-userRoutes.put("/api/users/update-password/:id", async (req, res) => {
+userRoutes.put("/update-password/:id", async (req, res) => {
   try {
     res.json({ status: "success", user: "User update password" });
   } catch (error) {
@@ -67,7 +67,7 @@ userRoutes.put("/api/users/update-password/:id", async (req, res) => {
 });
 
 //PUT/api/users/update/:id
-userRoutes.put("/api/users/update/:id", async (req, res) => {
+userRoutes.put("/update/:id", async (req, res) => {
   try {
     res.json({ status: "success", user: "User updated" });
   } catch (error) {
@@ -76,7 +76,7 @@ userRoutes.put("/api/users/update/:id", async (req, res) => {
 });
 
 //GET/api/users/logout
-userRoutes.get("/api/users/logout", async (req, res) => {
+userRoutes.get("/logout", async (req, res) => {
   try {
     res.json({ status: "success", user: "User logout" });
   } catch (error) {

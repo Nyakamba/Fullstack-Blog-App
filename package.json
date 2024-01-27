@@ -12,5 +12,9 @@
     "nodejs"
   ],
   "author": "Omwega Enock",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "mongoose": "^8.1.1"
+  }
 }

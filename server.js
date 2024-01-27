@@ -3,6 +3,7 @@ const express = require("express");
 const userRoutes = require("./routes/users/users");
 const postRoutes = require("./routes/posts/posts");
 const commentRoutes = require("./routes/comments/comments");
+const globalErrHandler = require("./middlewares/globalErrHandler");
 require("./config/dbConnect");
 const app = express();
 
@@ -19,6 +20,7 @@ app.use("/api/v1/posts", postRoutes);
 app.use("/api/v1/comments", commentRoutes);
 
 //Error handler middlewares
+app.use(globalErrHandler);
 //liten server
 
 const PORT = process.env.PORT || 9000;

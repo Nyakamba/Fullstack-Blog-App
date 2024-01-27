@@ -1,68 +1,19 @@
 require("dotenv").config();
 const express = require("express");
 const userRoutes = require("./routes/users/users");
+const postRoutes = require("./routes/posts/posts");
 require("./config/dbConnect");
 const app = express();
 
 //middlewares
 
-//---------
 //users route
-app.use("/api/v1/users/", userRoutes);
+app.use("/api/v1/users", userRoutes);
 
-//---------
 //posts route
-//----------
+app.use("/api/v1/posts", postRoutes);
 
-//POST/api/posts
-app.post("/api/posts", async (req, res) => {
-  try {
-    res.json({ status: "success", user: "Post ctreated" });
-  } catch (error) {
-    res.json(error);
-  }
-});
-
-//GEt/api/posts
-app.get("/api/posts", async (req, res) => {
-  try {
-    res.json({ status: "success", user: "Post list" });
-  } catch (error) {
-    res.json(error);
-  }
-});
-
-//GET/api/posts/:id
-app.get("/api/posts/:id", async (req, res) => {
-  try {
-    res.json({ status: "success", user: "Post details" });
-  } catch (error) {
-    res.json(error);
-  }
-});
-
-//DELETE/api/posts/:id
-app.delete("/api/posts/:id", async (req, res) => {
-  try {
-    res.json({ status: "success", user: "Post deleted" });
-  } catch (error) {
-    res.json(error);
-  }
-});
-
-//PUT/api/posts/:id
-app.put("/api/posts/:id", async (req, res) => {
-  try {
-    res.json({ status: "success", user: "Post updated" });
-  } catch (error) {
-    res.json(error);
-  }
-});
-
-//---------
 //comments route
-//----------
-
 //POST/api/comments
 app.post("/api/comments", async (req, res) => {
   try {

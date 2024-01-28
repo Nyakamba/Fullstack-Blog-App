@@ -3,7 +3,11 @@ const User = require("../../model/user/User");
 
 //create post
 const createPostCtrl = async (req, res) => {
+  const { title, description, category, image } = req.body;
   try {
+    //find user
+    const userId = req.session.userAuth;
+    console.log(userId);
     res.json({ status: "success", user: "Post ctreated" });
   } catch (error) {
     res.json(error);

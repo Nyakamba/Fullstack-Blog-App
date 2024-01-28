@@ -11,6 +11,7 @@ const {
   updateUserCtrl,
   logoutCtrl,
 } = require("../../controllers/users/users");
+const protected = require("../../middlewares/protected");
 
 //POST/api/v1/users/register
 
@@ -23,7 +24,7 @@ userRoutes.post("/login", loginCtrl);
 userRoutes.get("/:id", userDetails);
 
 //GET/api/users/profile/:id
-userRoutes.get("/profile/:id", profileCtrl);
+userRoutes.get("/profile/:id", protected, profileCtrl);
 
 //PUT/api/users/profile-photo-upload/:id
 userRoutes.put("/profile-photo-upload/:id", uploadProfilePhotoCtrl);

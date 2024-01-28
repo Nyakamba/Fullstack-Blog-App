@@ -29,6 +29,6 @@ postRoutes.get("/:id", fecthPostCtrl);
 postRoutes.delete("/:id", protected, deletePostCtrl);
 
 //PUT/api/v1/posts/:id
-postRoutes.put("/:id", updatePostCtrl);
+postRoutes.put("/:id", protected, upload.single("file"), updatePostCtrl);
 
 module.exports = postRoutes;

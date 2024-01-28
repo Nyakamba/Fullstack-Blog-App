@@ -1,6 +1,7 @@
 const Comment = require("../../model/comment/Comment");
 const User = require("../../model/user/User");
 const Post = require("../../model/post/Post");
+const appErr = require("../../utils/appErr");
 
 //create
 
@@ -28,19 +29,19 @@ const createCommentCtrl = async (req, res, next) => {
     await user.save({ validationBeforeSave: false });
     res.json({ status: "success", data: comment });
   } catch (error) {
-    res.json(error);
+    next(appErr(error.message));
   }
 };
 //deteils
-const commentDetailsCtrl = async (req, res) => {
+const commentDetailsCtrl = async (req, res, next) => {
   try {
     res.json({ status: "success", user: "Comment details" });
   } catch (error) {
-    res.json(error);
+    next(appErr(error.message));
   }
 };
 //delete
-const deleteCommentCtrl = async (req, res) => {
+const deleteCommentCtrl = async (req, res, next) => {
   try {
     //get the id from params
     const id = req.params.id;
@@ -57,35 +58,35 @@ const deleteCommentCtrl = async (req, res) => {
       user: "Comment has been  deleted successifully",
     });
   } catch (error) {
-    res.json(error);
+    next(appErr(error.message));
   }
 };
 
 //update
-const updateCommentCtrl = async (req, res) => {
+const updateCommentCtrl = async (req, res, next) => {
   try {
     //get the id from params
     const id = req.params.id;
-    //find the post
-    const post = await Post.findById(id);
-    //check if the post belongs to the user
-    if (post.user.toString() !== req.session.userAuth.toString()) {
-      return next(appErr("You are not allowed to update this post", 403));
+    //find the comment
+    const comment = await Comment.findById(id);
+    if (!comment) {
+      return next(appErr("Comment not found"));
     }
-
-    const updatedPost = await Post.findByIdAndUpdate(
+    //check if the post belongs to the user
+    if (comment.user.toString() !== req.session.userAuth.toString()) {
+      return next(appErr("You are not allowed to update this comment", 403));
+    }
+    //update
+    const updatedComment = await Comment.findByIdAndUpdate(
       id,
       {
-        title,
-        description,
-        category,
-        image: req.file.path,
+        message: req.body.message,
       },
       { new: true }
     );
-    res.json({ status: "success", data: updatedPost });
+    res.json({ status: "success", data: updatedComment });
   } catch (error) {
-    res.json(error);
+    next(appErr(error));
   }
 };
 module.exports = {

@@ -29,6 +29,8 @@ app.use(
   })
 );
 
+//render homepage
+
 //users route
 app.use("/api/v1/users", userRoutes);
 

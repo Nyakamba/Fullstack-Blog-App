@@ -8,3 +8,4 @@ const protected = (req, res, next) => {
     return next(appErr("Unauthorized please login"));
   }
 };
+module.exports = protected;

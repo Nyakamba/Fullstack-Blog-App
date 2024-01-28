@@ -59,7 +59,7 @@ const deletePostCtrl = async (req, res, next) => {
     const id = req.params.id;
     //find the post
     const post = await Post.findById(id);
-    //chech if the post belongs to the user
+    //check if the post belongs to the user
     if (post.user.toString() !== req.session.userAuth.toString()) {
       return next(appErr("You are not allowed to delete this post", 403));
     }
@@ -75,11 +75,31 @@ const deletePostCtrl = async (req, res, next) => {
 };
 
 //update
-const updatePostCtrl = async (req, res) => {
+const updatePostCtrl = async (req, res, next) => {
+  const { title, description, category } = req.body;
   try {
-    res.json({ status: "success", user: "Post updated" });
+    //get the id from params
+    const id = req.params.id;
+    //find the post
+    const post = await Post.findById(id);
+    //check if the post belongs to the user
+    if (post.user.toString() !== req.session.userAuth.toString()) {
+      return next(appErr("You are not allowed to update this post", 403));
+    }
+
+    const updatedPost = await Post.findByIdAndUpdate(
+      id,
+      {
+        title,
+        description,
+        category,
+        image: req.file.path,
+      },
+      { new: true }
+    );
+    res.json({ status: "success", data: updatedPost });
   } catch (error) {
-    res.json(error);
+    return next(appErr(error.message));
   }
 };
 module.exports = {

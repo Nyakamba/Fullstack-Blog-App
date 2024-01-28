@@ -53,11 +53,24 @@ const fecthPostCtrl = async (req, res, next) => {
 };
 
 //delete
-const deletePostCtrl = async (req, res) => {
+const deletePostCtrl = async (req, res, next) => {
   try {
-    res.json({ status: "success", user: "Post deleted" });
+    //get the id from params
+    const id = req.params.id;
+    //find the post
+    const post = await Post.findById(id);
+    //chech if the post belongs to the user
+    if (post.user.toString() !== req.session.userAuth.toString()) {
+      return next(appErr("You are not allowed to delete this post", 403));
+    }
+    //delete the post
+    await Post.findByIdAndDelete(id);
+    res.json({
+      status: "success",
+      user: "Post has been  deleted successifully",
+    });
   } catch (error) {
-    res.json(error);
+    return next(appErr(error.message));
   }
 };
 

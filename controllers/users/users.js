@@ -55,7 +55,7 @@ const loginCtrl = async (req, res, next) => {
     }
     //save user into session
     req.session.userAuth = userFound._id;
-    console.log(req.session);
+
     res.json({ status: "success", data: userFound });
   } catch (error) {
     res.json(error);

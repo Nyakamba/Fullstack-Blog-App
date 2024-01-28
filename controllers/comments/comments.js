@@ -1,3 +1,5 @@
+const Comment = require("../../model/comment/Comment");
+
 //create
 
 const createCommentCtrl = async (req, res) => {

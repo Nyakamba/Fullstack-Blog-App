@@ -87,13 +87,33 @@ const profileCtrl = async (req, res) => {
     res.json(error);
   }
 };
+
 //upload profile photo
 
-const uploadProfilePhotoCtrl = async (req, res) => {
+const uploadProfilePhotoCtrl = async (req, res, next) => {
+  console.log(req.file.path);
   try {
-    res.json({ status: "success", user: "User profile-photo upload" });
+    //1.find user to be updated
+    const userId = req.session.userAuth;
+    const userFound = await User.findById(userId);
+    //2.check if user is found
+    if (!userFound) {
+      return next(appErr("User not found", 403));
+    }
+    //3.update profile photo
+    await User.findByIdAndUpdate(
+      userId,
+      {
+        profileImage: req.file.path,
+      },
+      { new: true }
+    );
+    res.json({
+      status: "success",
+      data: "You have successifully updated your profile photo",
+    });
   } catch (error) {
-    res.json(error);
+    next(appErr(error.message));
   }
 };
 

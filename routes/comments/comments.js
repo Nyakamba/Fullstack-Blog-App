@@ -9,7 +9,7 @@ const {
 } = require("../../controllers/comments/comments");
 
 //POST/api/v1/comments
-commentRoutes.post("/", createCommentCtrl);
+commentRoutes.post("/:id", protected, createCommentCtrl);
 
 //GET/api/v1/comments/:id
 commentRoutes.get("/:id", commentDetailsCtrl);

@@ -10,8 +10,12 @@ require("./config/dbConnect");
 const app = express();
 
 //middlewares
-app.use(express.json()); //pass incoming data
+//configure ejs
+app.set("view engine", "ejs");
+//serve statice files
+app.use(express.static(__dirname, +"/public"));
 
+app.use(express.json()); //pass incoming data
 //session configure
 app.use(
   session({

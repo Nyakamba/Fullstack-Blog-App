@@ -37,7 +37,12 @@ userRoutes.put(
 );
 
 //PUT/api/v1/users/cover-photo-upload/:id
-userRoutes.put("/cover-photo-upload/:id", uploadCoverImageCtrl);
+userRoutes.put(
+  "/cover-photo-upload/",
+  protected,
+  upload.single("coverImage"),
+  uploadCoverImageCtrl
+);
 
 //PUT/api/v1/users/update-password/:id
 userRoutes.put("/update-password/:id", updatePasswordCtrl);

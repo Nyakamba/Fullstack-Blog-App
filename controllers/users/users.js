@@ -5,6 +5,9 @@ const appErr = require("../../utils/appErr");
 //register
 const registerCtrl = async (req, res, next) => {
   const { fullname, email, password } = req.body;
+  if (!fullname || !email || !password) {
+    return next(appErr("All fields are required"));
+  }
   try {
     //1.check if user exits(email)
     const userFound = await User.findOne({ email });
@@ -29,18 +32,18 @@ const registerCtrl = async (req, res, next) => {
 };
 
 //login
-const loginCtrl = async (req, res) => {
+const loginCtrl = async (req, res, next) => {
   const { password, email } = req.body;
+  if (!email || !password) {
+    return next(appErr("Email and password fields are required"));
+  }
   try {
     //check if email exists
     const userFound = await User.findOne({ email });
 
     if (!userFound) {
       //throw error
-      return res.json({
-        status: "failed",
-        data: "Invalid login credentials",
-      });
+      return next(appErr("Invalid login credentials"));
     }
     //}
 
@@ -48,12 +51,11 @@ const loginCtrl = async (req, res) => {
     const isPasswordValid = await bcrypt.compare(password, userFound.password);
     if (!isPasswordValid) {
       //throw error
-      return res.json({
-        status: "failed",
-        data: "Invalid login credentials",
-      });
+      return next(appErr("Invalid login credentials"));
     }
-
+    //save user into session
+    req.session.userAuth = userFound._id;
+    console.log(req.session);
     res.json({ status: "success", data: userFound });
   } catch (error) {
     res.json(error);

@@ -1,5 +1,6 @@
 const express = require("express");
 const commentRoutes = express.Router();
+const protected = require("../../middlewares/protected");
 const {
   createCommentCtrl,
   commentDetailsCtrl,

@@ -1,15 +1,16 @@
-const User = require("../../model/user/User");
 const bcrypt = require("bcryptjs");
+const User = require("../../model/user/User");
+const appErr = require("../../utils/appErr");
 
 //register
-const registerCtrl = async (req, res) => {
+const registerCtrl = async (req, res, next) => {
   const { fullname, email, password } = req.body;
   try {
     //1.check if user exits(email)
     const userFound = await User.findOne({ email });
     //throw error
     if (userFound) {
-      return res.json({ status: "failed", data: "User already exits" });
+      return next(appErr("User already exits"));
     }
     //Hash password
     const salt = await bcrypt.genSalt(10);

@@ -26,7 +26,7 @@ const createPostCtrl = async (req, res, next) => {
     await userFound.save();
     res.json({ status: "success", data: postCreated });
   } catch (error) {
-    res.json(error);
+    return next(appErr(error.message));
   }
 };
 //get all posts

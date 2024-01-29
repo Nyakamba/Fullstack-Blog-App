@@ -31,11 +31,6 @@ userRoutes.get("/register", (req, res) => {
   res.render("users/register", { error: "" });
 });
 
-//profile form
-userRoutes.get("/profile-page", (req, res) => {
-  res.render("users/profile");
-});
-
 //upload profile photo
 userRoutes.get("/upload-profile-photo-form", (req, res) => {
   res.render("users/uploadProfilePhoto");
@@ -59,7 +54,7 @@ userRoutes.post("/register", registerCtrl);
 userRoutes.post("/login", loginCtrl);
 
 //GET/api/users/profile/:id
-userRoutes.get("/profile", protected, profileCtrl);
+userRoutes.get("/profile-page", protected, profileCtrl);
 
 //PUT/api/users/profile-photo-upload/:id
 userRoutes.put(

@@ -13,6 +13,7 @@ const app = express();
 //configure ejs
 app.set("view engine", "ejs");
 //serve statice files
+app.use(express.static("public"));
 app.use(express.static(__dirname, +"/public"));
 
 app.use(express.json()); //pass incoming data
@@ -30,6 +31,9 @@ app.use(
 );
 
 //render homepage
+app.get("/", (req, res) => {
+  res.render("index.ejs");
+});
 
 //users route
 app.use("/api/v1/users", userRoutes);

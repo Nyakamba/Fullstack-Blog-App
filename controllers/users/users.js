@@ -7,7 +7,7 @@ const registerCtrl = async (req, res, next) => {
   const { fullname, email, password } = req.body;
   console.log(req.body);
   if (!fullname || !email || !password) {
-    return next(appErr("All fields are required"));
+    return res.render("users/register", { error: "All fields are required" });
   }
   try {
     //1.check if user exits(email)

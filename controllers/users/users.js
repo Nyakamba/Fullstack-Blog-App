@@ -5,7 +5,7 @@ const appErr = require("../../utils/appErr");
 //register
 const registerCtrl = async (req, res, next) => {
   const { fullname, email, password } = req.body;
-  console.log(req.body);
+
   if (!fullname || !email || !password) {
     return res.render("users/register", { error: "All fields are required" });
   }
@@ -14,7 +14,9 @@ const registerCtrl = async (req, res, next) => {
     const userFound = await User.findOne({ email });
     //throw error
     if (userFound) {
-      return next(appErr("User already exits"));
+      return res.render("users/register", {
+        error: "Email is taken",
+      });
     }
     //Hash password
     const salt = await bcrypt.genSalt(10);

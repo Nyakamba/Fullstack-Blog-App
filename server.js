@@ -31,6 +31,15 @@ app.use(
   })
 );
 
+//save the login user into locals
+app.use((req, res, next) => {
+  if (re.session.userAuth) {
+    res.locals.userAuth = req.session.userAuth;
+  } else {
+    res.locals.userAuth = null;
+  }
+});
+
 //render homepage
 app.get("/", (req, res) => {
   res.render("index");

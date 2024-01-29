@@ -83,10 +83,10 @@ userRoutes.put("/update-password/:id", updatePasswordCtrl);
 //PUT/api/v1/users/update/:id
 userRoutes.put("/update/:id", updateUserCtrl);
 
-//GET/api/v1/user/:id
-userRoutes.get("/:id", userDetails);
-
 //GET/api/v1/users/logout
 userRoutes.get("/logout", logoutCtrl);
+
+//GET/api/v1/user/:id
+userRoutes.get("/:id", userDetails);
 
 module.exports = userRoutes;

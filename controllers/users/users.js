@@ -38,7 +38,9 @@ const registerCtrl = async (req, res, next) => {
 const loginCtrl = async (req, res, next) => {
   const { password, email } = req.body;
   if (!email || !password) {
-    return next(appErr("Email and password fields are required"));
+    return res.render("users/login", {
+      error: "Email and password fields are required",
+    });
   }
   try {
     //check if email exists
@@ -46,7 +48,10 @@ const loginCtrl = async (req, res, next) => {
 
     if (!userFound) {
       //throw error
-      return next(appErr("Invalid login credentials"));
+
+      return res.render("users/login", {
+        error: "Invalid login credentials",
+      });
     }
     //}
 
@@ -54,12 +59,15 @@ const loginCtrl = async (req, res, next) => {
     const isPasswordValid = await bcrypt.compare(password, userFound.password);
     if (!isPasswordValid) {
       //throw error
-      return next(appErr("Invalid login credentials"));
+      return res.render("users/login", {
+        error: "Invalid login credentials",
+      });
     }
     //save user into session
     req.session.userAuth = userFound._id;
 
-    res.json({ status: "success", data: userFound });
+    //redirect
+    res.redirect("/api/v1/users/profile-page");
   } catch (error) {
     res.json(error);
   }

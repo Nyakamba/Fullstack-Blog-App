@@ -32,7 +32,7 @@ app.use(
 
 //render homepage
 app.get("/", (req, res) => {
-  res.render("index.ejs");
+  res.render("index");
 });
 
 //users route

@@ -22,8 +22,8 @@ const upload = multer({ storage });
 //Rendering forms
 //---------
 
-userRoutes.get("/register", (req, res) => {
-  res.render();
+userRoutes.get("/login", (req, res) => {
+  res.render("users/login");
 });
 
 //POST/api/v1/users/register

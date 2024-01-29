@@ -17,6 +17,7 @@ app.use(express.static("public"));
 app.use(express.static(__dirname, +"/public"));
 
 app.use(express.json()); //pass incoming data
+app.use(express.urlencoded({ extended: true })); // form data
 //session configure
 app.use(
   session({

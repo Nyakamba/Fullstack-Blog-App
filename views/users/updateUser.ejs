@@ -4,33 +4,45 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
     <!-- Font Awesome Icons -->
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
       crossorigin="anonymous"
     />
+
     <!-- CSS -->
-    <link rel="stylesheet" href="/css/uploadPhoto.css" />
-    <title>Upload Profile Photo</title>
+    <link rel="stylesheet" href="/css/form.css" />
+    <title>Update user</title>
   </head>
   <body>
     <div class="form-container">
       <!-- icon -->
-      <h1>Upload Profile photo</h1>
-      <p>
-        <!-- upload icon -->
-      </p>
+      <h1>
+        Update user
+        <i class="fas fa-user-plus"></i>
+      </h1>
+
       <small class="error">
         <i class="fas fa-exclamation-circle"></i>
         Invalid Credentials
       </small>
+
       <form action="/login" method="POST">
-        <label for="email">Select Imgae</label>
-        <input type="file" name="image" id="image" />
-        <button type="submit">
-          <i class="fas fa-upload"></i>
-        </button>
+        <!-- full name -->
+        <label for="name">Full Name</label>
+        <input type="text" name="name" id="name" />
+        <!-- email -->
+        <label for="email">Email</label>
+        <input type="email" name="email" id="email" />
+
+        <label for="password">Password</label>
+        <input type="password" name="password" id="password" />
+
+        <button type="submit">Register</button>
+
+        <p>Already have an account? <a href="/register">Login</a></p>
       </form>
     </div>
   </body>

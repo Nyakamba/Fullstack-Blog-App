@@ -46,6 +46,11 @@ userRoutes.get("/upload-cover-photo-form", (req, res) => {
   res.render("users/uploadCoverPhoto");
 });
 
+//upadte userc form
+userRoutes.get("/update-user-form", (req, res) => {
+  res.render("users/updateUser");
+});
+
 //POST/api/v1/users/register
 
 userRoutes.post("/register", registerCtrl);

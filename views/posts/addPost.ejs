@@ -24,10 +24,12 @@
         <!-- add icon -->
         <i class="fas fa-plus"></i>
       </h1>
+      <%if(error){%>
       <small class="error">
         <i class="fas fa-exclamation-circle"></i>
-        Invalid Credentials
+        <%=error%>
       </small>
+      <%}%>
       <form enctype="multipart/form-data" action="/api/v1/posts" method="POST">
         <!-- Post Title -->
         <div class="input-wrapper">

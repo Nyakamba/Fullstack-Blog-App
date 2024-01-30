@@ -70,7 +70,7 @@
           </span>
         </p>
         <h1 class="post-title"><%=post?.title%>r</h1>
-        <p class="post-body"><%=post?.description%></p>
+        <p class="post-body"><%=truncatePost(post?.description)%></p>
         <!-- category -->
         <div class="post-category">
           <span>Category:<%=post?.category%></span>

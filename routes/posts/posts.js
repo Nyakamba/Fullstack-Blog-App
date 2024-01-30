@@ -16,8 +16,13 @@ const upload = multer({
   storage,
 });
 
+//forms rendering
+postRoutes.get("/get-post-form", (req, res) => {
+  res.render("posts/addPost", { error: "" });
+});
+
 //POST/api/v1/posts
-postRoutes.post("/", protected, upload.single("file"), createPostCtrl);
+postRoutes.post("/", protected, upload.single("image"), createPostCtrl);
 
 //GEt/api/v1/posts
 postRoutes.get("/", fetchPostsCtrl);

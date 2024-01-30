@@ -105,12 +105,20 @@ const profileCtrl = async (req, res) => {
 
 const uploadProfilePhotoCtrl = async (req, res, next) => {
   try {
+    //check a file exists
+    if (!req.file) {
+      return res.render("users/uploadProfilePhoto", {
+        error: "Please upload image",
+      });
+    }
     //1.find user to be updated
     const userId = req.session.userAuth;
     const userFound = await User.findById(userId);
     //2.check if user is found
     if (!userFound) {
-      return next(appErr("User not found", 403));
+      return res.render("users/uploadProfilePhoto", {
+        error: "User not found",
+      });
     }
     //3.update profile photo
     const userUpdated = await User.findByIdAndUpdate(
@@ -120,12 +128,14 @@ const uploadProfilePhotoCtrl = async (req, res, next) => {
       },
       { new: true }
     );
+    //redirect
+    res.redirect("/api/v1/users/profile-page");
     res.json({
       status: "success",
       data: userUpdated,
     });
   } catch (error) {
-    next(appErr(error.message));
+    return res.render("users/uploadProfilePhoto", { error: error.message });
   }
 };
 

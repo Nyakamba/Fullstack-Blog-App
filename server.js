@@ -8,10 +8,14 @@ const commentRoutes = require("./routes/comments/comment");
 const postRoutes = require("./routes/posts/posts");
 const userRoutes = require("./routes/users/users");
 const Post = require("./model/post/Post");
+const { truncatePost } = require("./utils/helpers");
 
 require("./config/dbConnect");
 
 const app = express();
+
+//helpers
+app.locals.truncatePost = truncatePost;
 
 //middlewares
 //configure ejs

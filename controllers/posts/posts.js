@@ -7,7 +7,7 @@ const createPostCtrl = async (req, res, next) => {
   const { title, description, category } = req.body;
   try {
     if (!title || !description || !category || !req.file) {
-      return next(appErr("All fields are required"));
+      res.render("posts/addPost", { error: "All fields are required" });
     }
     //find user
     const userId = req.session.userAuth;

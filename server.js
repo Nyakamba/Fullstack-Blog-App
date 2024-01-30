@@ -7,7 +7,7 @@ const globalErrHandler = require("./middlewares/globalHandler");
 const commentRoutes = require("./routes/comments/comment");
 const postRoutes = require("./routes/posts/posts");
 const userRoutes = require("./routes/users/users");
-const Post = require("../../model/post/Post");
+const Post = require("./model/post/Post");
 
 require("./config/dbConnect");
 

@@ -1,26 +1,26 @@
 const express = require("express");
 const multer = require("multer");
-const userRoutes = express.Router();
+const storage = require("../../config/cloudinary");
 const {
   registerCtrl,
   loginCtrl,
-  userDetails,
+  userDetailsCtrl,
   profileCtrl,
   uploadProfilePhotoCtrl,
-  uploadCoverImageCtrl,
+  uploadCoverImgCtrl,
   updatePasswordCtrl,
   updateUserCtrl,
   logoutCtrl,
 } = require("../../controllers/users/users");
 const protected = require("../../middlewares/protected");
-const storage = require("../../config/cloudinary");
+const userRoutes = express.Router();
 
 //instance of multer
 const upload = multer({ storage });
 
-//---------
+//-----
 //Rendering forms
-//---------
+//-----
 
 //login form
 userRoutes.get("/login", (req, res) => {
@@ -28,35 +28,36 @@ userRoutes.get("/login", (req, res) => {
 });
 //register form
 userRoutes.get("/register", (req, res) => {
-  res.render("users/register", { error: "" });
+  res.render("users/register", {
+    error: "",
+  });
 });
 
 //upload profile photo
 userRoutes.get("/upload-profile-photo-form", (req, res) => {
-  res.render("users/uploadProfilePhoto");
+  res.render("users/uploadProfilePhoto", { error: "" });
 });
 
 //upload cover photo
 userRoutes.get("/upload-cover-photo-form", (req, res) => {
-  res.render("users/uploadCoverPhoto");
+  res.render("users/uploadCoverPhoto", { error: "" });
 });
 
-//upadte userc form
+//update user form
 userRoutes.get("/update-user-form", (req, res) => {
   res.render("users/updateUser");
 });
 
 //POST/api/v1/users/register
-
-userRoutes.post("/register", registerCtrl);
+userRoutes.post("/register", upload.single("profile"), registerCtrl);
 
 //POST/api/v1/users/login
 userRoutes.post("/login", loginCtrl);
 
-//GET/api/users/profile/:id
+//GET/api/v1/users/profile
 userRoutes.get("/profile-page", protected, profileCtrl);
 
-//PUT/api/users/profile-photo-upload/:id
+//PUT/api/v1/users/profile-photo-upload/:id
 userRoutes.put(
   "/profile-photo-upload/",
   protected,
@@ -68,8 +69,8 @@ userRoutes.put(
 userRoutes.put(
   "/cover-photo-upload/",
   protected,
-  upload.single("coverImage"),
-  uploadCoverImageCtrl
+  upload.single("profile"),
+  uploadCoverImgCtrl
 );
 
 //PUT/api/v1/users/update-password/:id
@@ -81,7 +82,7 @@ userRoutes.put("/update/:id", updateUserCtrl);
 //GET/api/v1/users/logout
 userRoutes.get("/logout", logoutCtrl);
 
-//GET/api/v1/user/:id
-userRoutes.get("/:id", userDetails);
+//GET/api/v1/users/:id
+userRoutes.get("/:id", userDetailsCtrl);
 
 module.exports = userRoutes;

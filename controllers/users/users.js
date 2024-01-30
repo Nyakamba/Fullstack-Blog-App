@@ -41,7 +41,9 @@ const registerCtrl = async (req, res, next) => {
 const loginCtrl = async (req, res, next) => {
   const { email, password } = req.body;
   if (!email || !password) {
-    return next(appErr("Email and password fields are required"));
+    return res.render("users/login", {
+      error: "Email and password fields are required",
+    });
   }
   try {
     //Check if email exist
@@ -76,13 +78,10 @@ const userDetailsCtrl = async (req, res, next) => {
     const userId = req.params.id;
     //find the user
     const user = await User.findById(userId);
-    // res.json({
-    //   status: "success",
-    //   data: user,
-    // });
-    res.render("users/updateUser", { user });
+
+    res.render("users/updateUser", { user, error: "" });
   } catch (error) {
-    res.json(error);
+    res.render("users/updateUser", { error: error.message });
   }
 };
 //profile

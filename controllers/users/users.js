@@ -82,11 +82,7 @@ const userDetailsCtrl = async (req, res, next) => {
     // });
     res.render("users/updateUser", { user });
   } catch (error) {
-    //res.json(error);
-    return res.render("users/updateUser", {
-      error: error.message,
-      user: "",
-    });
+    res.json(error);
   }
 };
 //profile

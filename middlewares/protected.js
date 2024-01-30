@@ -5,7 +5,7 @@ const protected = (req, res, next) => {
   if (req.session.userAuth) {
     next();
   } else {
-    return next(appErr("Unauthorized please login"));
+    res.render("users/notAuthorize");
   }
 };
 module.exports = protected;

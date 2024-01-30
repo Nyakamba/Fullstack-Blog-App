@@ -152,7 +152,7 @@ const uploadCoverImgCtrl = async (req, res, next) => {
     //2. check if user is found
     if (!req.file) {
       return res.render("users/uploadCoverPhoto", {
-        error: "Please upload image",
+        error: "User not found",
       });
     }
     //5.Update cover photo
@@ -184,7 +184,7 @@ const updatePasswordCtrl = async (req, res, next) => {
       const passswordHashed = await bcrypt.hash(password, salt);
       //update user
       await User.findByIdAndUpdate(
-        req.params.id,
+        req.session.userAuth,
         {
           password: passswordHashed,
         },
@@ -192,13 +192,13 @@ const updatePasswordCtrl = async (req, res, next) => {
           new: true,
         }
       );
-      res.json({
-        status: "success",
-        user: "Password has been changed successfully",
-      });
+      //redirect
+      res.redirect("/api/v1/users/profile-page");
     }
   } catch (error) {
-    return next(appErr("Please provide password field"));
+    return res.render("users/uploadCoverPhoto", {
+      error: error.message,
+    });
   }
 };
 

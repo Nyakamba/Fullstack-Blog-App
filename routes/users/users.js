@@ -44,9 +44,9 @@ userRoutes.get("/upload-cover-photo-form", (req, res) => {
 });
 
 //update user form
-userRoutes.get("/update-user-form", (req, res) => {
-  res.render("users/updateUser");
-});
+// userRoutes.get("/update-user-form", (req, res) => {
+//   res.render("users/updateUser");
+// });
 
 //POST/api/v1/users/register
 userRoutes.post("/register", upload.single("profile"), registerCtrl);
@@ -77,7 +77,7 @@ userRoutes.put(
 userRoutes.put("/update-password/:id", updatePasswordCtrl);
 
 //PUT/api/v1/users/update/:id
-userRoutes.put("/update/:id", updateUserCtrl);
+userRoutes.put("/update", updateUserCtrl);
 
 //GET/api/v1/users/logout
 userRoutes.get("/logout", logoutCtrl);

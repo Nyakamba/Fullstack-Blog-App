@@ -50,7 +50,7 @@ app.use((req, res, next) => {
 //render home
 app.get("/", async (req, res) => {
   try {
-    const posts = await Post.find();
+    const posts = await Post.find().populate("user");
     res.render("index", { posts });
   } catch (error) {
     res.render("index", { error: error.message });

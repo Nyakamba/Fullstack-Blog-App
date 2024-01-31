@@ -56,10 +56,8 @@ const deleteCommentCtrl = async (req, res, next) => {
     }
     //delete the comment
     await Comment.findByIdAndDelete(id);
-    res.json({
-      status: "success",
-      user: "Comment has been  deleted successifully",
-    });
+    //redirect
+    res.redirect(`/api/v1/posts/${req.query.postId}`);
   } catch (error) {
     next(appErr(error.message));
   }

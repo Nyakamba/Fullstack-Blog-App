@@ -47,7 +47,13 @@ const fecthPostCtrl = async (req, res, next) => {
     //get the id from params
     const id = req.params.id;
     //find the post
-    const post = await Post.findById(id).populate("comments").populate("user");
+    const post = await Post.findById(id)
+      .populate({
+        path: "comments",
+        populate: { path: "user" },
+      })
+      .populate("user");
+    console.log(post);
     res.render("posts/postDetails", { post, error: "" });
   } catch (error) {
     return next(appErr(error.message));

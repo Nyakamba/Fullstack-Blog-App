@@ -65,18 +65,17 @@
         <div class="comments">
           <h2>Comments</h2>
           <!--loop comments -->
-
           <%post?.comments?.forEach((comment)=>{%>
           <div class="comment">
             <div class="comment-info">
               <img
-                src="<%=post?.user?.profileImage%>"
+                src="<%=comment?.user?.profileImage%>"
                 alt=""
                 class="comment-author-image"
               />
               <div class="comment-author">
-                <h4>John Doe</h4>
-                <span>January 1, 2020</span>
+                <h4><%=comment?.user?.fullname%></h4>
+                <span><%=comment?.createdAt?.toLocaleDateString()%></span>
               </div>
             </div>
             <div class="comment-body">
@@ -86,9 +85,13 @@
                 <a href="#" class="comment-update">
                   <i class="fas fa-edit"></i>
                 </a>
-                <a href="#" class="comment-delete">
-                  <i class="fas fa-trash-alt"></i>
-                </a>
+                <!-- delete comment -->
+                <form
+                  action="/api/v1/comments/<%=comment?._id%>?_method=DELETE"
+                  method="post"
+                >
+                  <button><i class="fas fa-trash-alt"></i></button>
+                </form>
               </div>
             </div>
           </div>
@@ -110,28 +113,6 @@
           <small><%=post?.user?.role%></small>
           <p class="about-me-bio"><%=post?.user?.bio%></p>
         </div>
-
-        <!-- <div class="sidebar-content">
-          <h1 class="post-title">Start Here</h1>
-          <img src="./images/post4.jpg" alt="" class="post-image" />
-          <p class="post-info">
-            <span class="post-author">
-              <i class="fas fa-user"></i>
-              <a href="#">John Doe</a>
-            </span>
-            <span class="post-date">
-              <i class="far fa-calendar-alt"></i>
-              <time datetime="2020-01-01">January 1, 2020</time>
-            </span>
-          </p>
-          <p class="post-body">
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Officia
-            itaque inventore culpa placeat! Cum nam optio, labore, voluptas sunt
-            quam rem cupiditate laboriosam amet reiciendis velit doloribus eum!
-            Repudiandae, odio?
-          </p>
-          <a href="/" class="post-read-more">Continue Reading...</a>
-        </div> -->
       </aside>
     </section>
     <!-- footer -->

@@ -25,8 +25,9 @@ const createCommentCtrl = async (req, res, next) => {
     //disable validation
     //save
 
-    await post.save({ validationBeforeSave: false });
-    await user.save({ validationBeforeSave: false });
+    await post.save({ validateBeforeSave: false });
+    await user.save({ validateBeforeSave: false });
+    console.log(post);
     res.json({ status: "success", data: comment });
   } catch (error) {
     next(appErr(error.message));

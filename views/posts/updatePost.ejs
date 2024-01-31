@@ -12,14 +12,14 @@
     />
     <!-- CSS -->
     <link rel="stylesheet" href="/css/form.css" />
-    <title>Post Creation</title>
+    <title>Post Update</title>
   </head>
   <body>
     <%-include('../partials/navbar.ejs') %>
     <div class="form-container">
       <!-- icon -->
       <h1>
-        Add Post
+        Update Post
 
         <!-- add icon -->
         <i class="fas fa-plus"></i>
@@ -30,11 +30,15 @@
         <%=error%>
       </small>
       <%}%>
-      <form enctype="multipart/form-data" action="/api/v1/posts" method="POST">
+      <form
+        enctype="multipart/form-data"
+        action="/api/v1/posts/<%=post?._id%>?_method=PUT"
+        method="POST"
+      >
         <!-- Post Title -->
         <div class="input-wrapper">
           <label for="name">Post Title</label>
-          <input type="text" name="title" id="name" />
+          <input type="text" value="<%=post?.title%>" name="title" id="name" />
           <!-- err -->
         </div>
 
@@ -54,13 +58,15 @@
         <div class="input-wrapper">
           <!-- Post Body -->
           <label for="body">Post Body</label>
-          <textarea name="description" id="body" cols="30" rows="10"></textarea>
+          <textarea name="description" id="body" cols="30" rows="10">
+             <%=post?.description%>
+          </textarea>
           <!-- err -->
         </div>
         <!-- Post Image -->
         <div class="input-wrapper">
           <label for="image">Post Image</label>
-          <input type="file" name="image" id="image" />
+          <input type="file" name="image" value="<%=post?.image%>" id="image" />
           <!-- err -->
         </div>
 

@@ -36,7 +36,10 @@
               <i class="fas fa-edit"></i>
             </a>
             <!-- delete post -->
-            <form>
+            <form
+              action="/api/v1/posts/<%=post?._id%>?_method=DELETE"
+              method="post"
+            >
               <button><i class="fas fa-trash-alt"></i></button>
             </form>
           </div>

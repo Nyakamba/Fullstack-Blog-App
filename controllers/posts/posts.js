@@ -84,28 +84,52 @@ const deletePostCtrl = async (req, res, next) => {
 const updatePostCtrl = async (req, res, next) => {
   const { title, description, category } = req.body;
   try {
+    // if (!title || !description || !category || !req.file) {
+    //   res.render("posts/updatePost", { error: "All fields are required" });
+    // }
     //get the id from params
     const id = req.params.id;
     //find the post
     const post = await Post.findById(id);
     //check if the post belongs to the user
     if (post.user.toString() !== req.session.userAuth.toString()) {
-      return next(appErr("You are not allowed to update this post", 403));
+      return res.render("posts/updatePost", {
+        error: "You are not allowed to update this post",
+        post: "",
+      });
     }
 
-    const updatedPost = await Post.findByIdAndUpdate(
-      id,
-      {
-        title,
-        description,
-        category,
-        image: req.file.path,
-      },
-      { new: true }
-    );
-    res.json({ status: "success", data: updatedPost });
+    //check if user is updating image
+    if (req.file) {
+      await Post.findByIdAndUpdate(
+        id,
+        {
+          title,
+          description,
+          category,
+          image: req.file.path,
+        },
+        { new: true }
+      );
+    } else {
+      await Post.findByIdAndUpdate(
+        id,
+        {
+          title,
+          description,
+          category,
+        },
+        { new: true }
+      );
+    }
+
+    //redirect
+    res.redirect("/");
   } catch (error) {
-    return next(appErr(error.message));
+    return res.render("posts/updatePost", {
+      error: error.message,
+      post: "",
+    });
   }
 };
 module.exports = {
